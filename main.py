@@ -51,7 +51,7 @@ def play_game():
         while choice_user != choice_computer:
             print ("-- Vous avez perdu --")
             print(" ")
-            choice_user = input("Entrez votre choix: ")
+            choice_user = user()
 
         print(" ")
         print("-- Vous avez gagnez ! --")
