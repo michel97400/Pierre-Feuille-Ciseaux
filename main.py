@@ -1,10 +1,8 @@
-# Création d'un algorithme pour un jeu de shifumi
-
 # importation de la bibliotéque random
 import random
 
 # Liste contenant les choix de l'ordinateur
-list_choices = ['pierre', 'papier', 'ciseaux']
+list_choices = ['pierre', 'feuille', 'ciseaux']
 
 # Fonction pour récupérer le choix de l'ordinateur
 def computer():
@@ -41,23 +39,32 @@ def play_game():
     count = 0
 
     # Boucle du jeu avec un compteur
-    while tour <  3:
+    while tour < 3:
         print(f'==================================TOUR N°{tour + 1}==================================')
         choice_computer = computer()
         choice_user = user()
 
-
-        # Boucle pour vérifié les entrées
-        while choice_user != choice_computer:
-            print ("-- Vous avez perdu --")
+        if choice_user == choice_computer:
             print(" ")
-            choice_user = user()
-
-        print(" ")
-        print("-- Vous avez gagnez ! --")
-        print(" ")
-        count += 1
-        
+            print("-- Match nul ! --")
+            print(f"Vous et l'ordinateur avez choisi : {choice_user}")
+            print(" ")
+            # On ne compte pas le tour, on recommence
+            continue
+        # Règles du jeu
+        elif (choice_user == 'pierre' and choice_computer == 'ciseaux') or \
+             (choice_user == 'feuille' and choice_computer == 'pierre') or \
+             (choice_user == 'ciseaux' and choice_computer == 'feuille'):
+            print(" ")
+            print("-- Vous avez gagnez ! --")
+            print(f"L'ordinateur a choisi : {choice_computer}")
+            print(" ")
+            count += 1
+        else:
+            print(" ")
+            print("-- Vous avez perdu --")
+            print(f"L'ordinateur a choisi : {choice_computer}")
+            print(" ")
         tour += 1
 
         if count == 3:
@@ -67,7 +74,7 @@ def play_game():
             print(" ")
 
 
-# Fonction pour demander à l'utilisateur su il veut rejouer
+# Fonction pour demander à l'utilisateur si il veut rejouer
 def rejoue():
     rejouer = input("Voulez-vous rejouer ? oui/non: ")
     
@@ -78,16 +85,13 @@ def rejoue():
     return rejouer == 'oui'
 
 
-# lancement de la fonction
-play_game()
-
-choix_rejouer = rejoue()
-
-# Boucle pour relancer le jeu
-while True:
-
-    if choix_rejouer:
-        play_game()
-    else:
-        print("A bientot !")
-        break
+# Permet de lancer le jeu uniquement si le fichier est exécuté directement
+if __name__ == "__main__":
+    play_game()
+    choix_rejouer = rejoue()
+    while True:
+        if choix_rejouer:
+            play_game()
+        else:
+            print("A bientot !")
+            break
